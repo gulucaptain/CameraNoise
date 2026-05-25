@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="CameraNoise: Enabling Faithful Camera Control in Video Diffusion through Geometry-Flow-Guided Noise Warping">
+  <meta property="og:title" content="CameraNoise"/>
+  <meta property="og:description" content="CameraNoise: Enabling Faithful Camera Control in Video Diffusion through Geometry-Flow-Guided Noise Warping"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <!-- <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/> -->
+
+
+  <!-- <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG"> -->
+  <!-- <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG"> -->
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <!-- <meta name="twitter:image" content="assets/images/your_twitter_banner_image.png"> -->
+  <!-- <meta name="twitter:card" content="summary_large_image"> -->
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>CameraNoise</title>
+  <link href="static/css/style.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/x-icon" href="assets/images/CameraNoise.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<style>
+  td {
+    padding: 5px;
+  }
+</style>
+
+<style>
+  /* 导航整体样式 */
+  #toc {
+    position: fixed;          /* 固定在页面左上角 */
+    top: 20px;
+    left: 20px;
+    background: #ffffff;      /* 白色背景 */
+    border: 1px solid #ddd;   /* 边框 */
+    border-radius: 8px;       /* 圆角 */
+    padding: 15px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 阴影 */
+    font-family: "Arial", sans-serif;
+    max-width: 200px;
+  }
+  
+  /* 列表样式 */
+  #toc ul {
+    list-style: none;  /* 去掉默认圆点 */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* 列表项样式 */
+  #toc li {
+    margin-bottom: 10px;
+  }
+  
+  /* 链接样式 */
+  #toc a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  
+  /* 悬停效果 */
+  #toc a:hover {
+    color: #007bff;
+    transform: translateX(4px);
+  }
+  
+  /* 当前高亮链接（可配合 JS 动态添加类 active） */
+  #toc a.active {
+    color: #007bff;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1750px) {
+    #toc {
+      display: none;
+    }
+  }
+</style>
+
+<body>
+<section class="section hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span style="background: linear-gradient(to right, red, hotpink, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">[ICML'26] CameraNoise:</span> Enabling Faithful Camera Control in Video Diffusion through Geometry-Flow-Guided Noise Warping
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Haoyu Zhao, Jiaxi Gu, Haoran Chen, Qingping Zheng, Yeyin Jin, Hongyi Yang, Junqi Cheng, Yuang Zhang, <br> Zenghui Lu, Huan Yu, Jie Jiang, Peng Shu, Zuxuan Wu, Yu-Gang Jiang</span>
+              <span class="author-block">Fudan University; Tencent.</span>
+            </div>
+            <p>* This project page contains a large number of videos, please wait patiently for them to load.</p>
+
+            <div class="publication-links" style="margin-top: 1.5rem;">
+              <span class="link-block">
+                <a href="https://gulucaptain.github.io/CameraNoise/"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-globe"></i>
+                  </span>
+                  <span>Project Page</span>
+                </a>
+              </span>
+            
+              <span class="link-block">
+                <a href="https://github.com/gulucaptain/CameraNoise"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            
+              <span class="link-block">
+                <a href="#"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-cube"></i>
+                  </span>
+                  <span>Models (Coming soon!)</span>
+                </a>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<nav id="toc">
+  <ul>
+    <li><a href="#section"><b>Table of Contents</b></a></li>
+    <li><a href="#section1">1. CameraNoise</a></li>
+    <li><a href="#section2">2. I2V Generation</a></li>
+    <li><a href="#section3">3. T2V Generation</a></li>
+    <li><hr></li>
+    <li><a href="#section4">4. Dynamic Scenarios</a></li>
+    <li><a href="#section5">5. Driving Scenarios</a></li>
+    <li><a href="#section6">6. Cross-Camera</a></li>
+    <li><a href="#section7">7. Camera Transfer</a></li>
+    <li><hr></li>
+    <li><a href="#section8">8. Framework</a></li>
+    <li><a href="#section9">9. GRFlow Representation</a></li>
+    <li><a href="#section10">10. vs. Optical Flow</a></li>
+    <li><a href="#section11">11. Pseudo-depth d</a></li>
+    <li><a href="#section12">12. Comparison 1</a></li>
+    <li><a href="#section13">13. Comparison 2</a></li>
+  </ul>
+</nav>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Precise camera pose control is critical for video diffusion, yet maintaining geometric consistency remains a challenge. Existing methods that directly inject numerical camera parameters into the diffusion backbone often fail to bridge the gap between abstract coordinates and visual content, leading to structural distortions. To address this issue, we propose <b>CameraNoise</b>, a flow-to-noise warping method that encodes camera motion into a temporally coherent stochastic representation. Unlike conventional conditioning, CameraNoise embeds camera poses directly into the noise space. This decouples motion from scene appearance while faithfully preserving trajectory dynamics. Specifically, we introduce a novel Geometry-guided Reprojection Flow and a noise warping algorithm, which jointly preserve the Gaussian prior of diffusion and ensure consistent noise propagation under camera transformations. By integrating CameraNoise into the diffusion process, our framework delivers stable, high-fidelity videos. Extensive experiments demonstrate that our approach significantly outperforms prior methods in both visual quality and trajectory faithfulness.
+          </p>
+          <!-- <img style="max-width: 400px; display: block; margin: 0 auto;" src="assets/figs/ots.png" /> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<section class="section hero" id="section1">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3"><span class="todo"></span>1. Warped CameraNoise from Source Video</h2>
+      <h2 class="title is-5"><span class="todo"></span>The proposed CameraNoise is an appearance-agnostic noise representation with camera poses from input video.</h2>
+      
+      <table style="max-width: 1500px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/cameranoise/demo1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/cameranoise/demo2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+        
+        <tr>
+          <td><video src="assets/cameranoise/demo3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/cameranoise/demo4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/cameranoise/demo5.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/cameranoise/demo6.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/cameranoise/demo7.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/cameranoise/demo8.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        You can pause the video at any frame to examine the Gaussian distribution of a single frame. At that moment, you can notice that the motion information in the video has disappeared.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light" id="section2">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">2. Camera-controllable Image-to-Video (I2V) Generation</h2>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>2.1</b> Our method transforms camera poses into CameraNoise, a noise-space representation of camera motion. This appearance-independent representation is introduced into the denoising process of the video diffusion model, enabling the generated videos to accurately capture camera motion trajectories.
+      </div>
+      <table class="video-table" >
+        <tr>
+          <td><video src="assets/generated_process/process_demo1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/generated_process/process_demo2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/generated_process/process_demo3.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/generated_process/process_demo4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>2.2</b> More camera controllable I2V results: each video is generated with reference image, camera poses, and prompt.
+      </div>
+      
+      <table class="video-table">
+        <!-- Row 1 -->
+        <tr>
+          <td><video src="assets/i2v_results/8f04f919b046336c_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/56ae4fff81255579_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/93a8bf0ecd7eafcf_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+          <td><video src="assets/i2v_results/deb368fb90770550_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/94e35563d865a2d6_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/7526c18f191bcc1a_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 3 -->
+        <tr>
+          <td><video src="assets/i2v_results/bf756257ffdd0017_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/c45cab04c3b22166_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/i2v_results/dd1c1d26525a2a1b_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero" id="section3">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">3. Camera Controllable Text-to-Video (T2V) Generation</h2>
+
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>3.1</b> Each Videos is generated with a textual prompt and camera poses.
+      </div>
+
+      <table class="video-table">
+        <!-- Row 1 -->
+        <tr>
+          <td><video src="assets/t2v_process/t2v_process1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/t2v_process/t2v_process2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>3.2</b> More camera controllable T2V results.
+      </div>
+
+      <table class="video-table">
+        <!-- Row 1 -->
+        <tr>
+          <td><video src="assets/t2v_results/1758368084_Image_c3c33ceed1308b42_Camera_c3c33ceed1308b42_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758359463_Image_dd1c1d26525a2a1b_Camera_dd1c1d26525a2a1b_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758359720_Image_deb368fb90770550_Camera_deb368fb90770550_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 3 -->
+        <tr>
+          <td><video src="assets/t2v_results/1758362852_Image_1b2937e192040745_Camera_1b2937e192040745_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758363480_Image_dd5288bacc7da7cf_Camera_dd5288bacc7da7cf_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758363694_Image_2f7f2369486cc959_Camera_2f7f2369486cc959_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 4 -->
+        <tr>
+          <td><video src="assets/t2v_results/1758364115_Image_5151d3969e328df1_Camera_5151d3969e328df1_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758365812_Image_645cc7949386d427_Camera_645cc7949386d427_RIGHT.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/t2v_results/1758366227_Image_a552d52c34c2c920_Camera_a552d52c34c2c920_RIGHT.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light" id="section4">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">4. Dynamic and ourdoor scenes with different camera poses.</h2>
+      
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <span><b>4.1</b> We demonstrate <b>dynamic results across multiple scenes</b> under three different types of camera motion. Given a reference image, camera poses, and textual descriptions, our model is able to generate the corresponding dynamic scenes.</span>
+      </div>
+
+      <p>Camera1: Move-Up Shot.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case2.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+
+      <p>Camera2: Counterclockwise Rotation Shot.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case5.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case6.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case7.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case8.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      
+      <p>Camera3: Move-Down Shot.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case9.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case10.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case11.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/dynamic_scene/dynamic_case12.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>4.2</b> In the three examples below, we demonstrate the model's ability to generate dynamic videos under complex camera motion. All three videos use the same CameraNoise camera trajectory. Compared with the original 2-second setting, we directly generate longer 4-second videos to further verify the model's stability and dynamic performance in long-horizon generation. We choose amusement park scenes as representative examples to showcase the model's capability in dynamic scene generation.
+      </div>
+      <table class="video-table" >
+        <tr>
+          <td><video src="assets/dynamic/dynamic_videos.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <b>4.3</b> In the other three videos below, we further demonstrate the model's ability to generate dynamic videos in static scenes. These results highlight two key properties. First, in our model, camera motion and object motion are not inherently coupled: even under a static camera, the boat in the scene can still move naturally. Second, the motion state and speed of the object can be effectively controlled by text prompts, where different prompts lead to different speed patterns. This also shows that the model is not limited to slow motion generation, but can produce a broader range of dynamic behaviors.
+      </div>
+      <table class="video-table" >
+        <tr>
+          <td><video src="assets/dynamic/dynamic_speed.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <br>
+        <p><b>Inference Prompts:</b></p>
+        <p>1) <b>Low speed:</b> a boat splashing down a steep water slope, huge arcs of water frozen in the air, wet rails, bright reflections.</p>
+        <p>2) <b>Medium speed:</b> a boat racing rapidly down a steep water slope, explosive arcs of water bursting into the air, wet rails, bright reflections.</p>
+        <p>3) <b>High speed:</b> a boat speeding down a steep water slope at high speed, massive splashes frozen in midair, wet rails, bright reflections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero" id="section5">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">5. Vehicle driving scene.</h2>
+      
+      <table class="video-table">
+        <!-- Row 1 -->
+        <tr>
+          <td><video src="assets/rebuttal/driving_scene/driving_case1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case2.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+          <td><video src="assets/rebuttal/driving_scene/driving_case5.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case6.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case7.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case8.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <!-- Row 3 -->
+        <tr>
+          <td><video src="assets/rebuttal/driving_scene/driving_case9.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case10.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case11.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/driving_scene/driving_case12.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <span>Vehicle driving scenarios are among the most challenging dynamic scenes. We test our model of image-to-video generation using data from the <b>DrivingDoJo dataset</b>, and the results show that it can effectively handle common driving situations, including daytime, nighttime, straight driving, and turning.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light" id="section6">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">6. Single scene under different camera poses.</h2>
+      
+      <p>Scene1: A vibrant forest scene is filled with various birds flying, surrounded by trees, green mossy ground, and sunlight.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/camera_shots_1/camera_shot1_case1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_1/camera_shot1_case2.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_1/camera_shot1_case3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_1/camera_shot1_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+        
+      <p>Scene2: A golden retriever stands in a sunlit grassy field, with trees and open green space in the background.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/camera_shots_2/camera_shot2_case1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_2/camera_shot2_case2.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_2/camera_shot2_case3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_2/camera_shot2_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+        
+      <p>Scene3: A cowboy rides a horse along a winding dirt road through a golden and sunlit field with fences.</p>
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/camera_shots_4/camera_shot4_case1.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_4/camera_shot4_case2.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_4/camera_shot4_case3.mp4" loop controls muted autoplay></video></td>
+          <td><video src="assets/rebuttal/camera_shots_4/camera_shot4_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <span>We showcase the dynamic motion of the <b>same scene under different camera poses</b>, demonstrating that our model exhibits strong robustness across various scenes. The camera poses used are sourced from the MultiCamVideo dataset.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero" id="section7">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">7. Camera pose transfer: source video to generated videos.</h2>
+      
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/transfer_case/transfer_case_1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/rebuttal/transfer_case/transfer_case_2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <span>Given an input video, we can obtain its camera parameters using the VGGT model, and then convert these parameters into CameraNoise with our proposed algorithm to provide the model with camera control capability. We select two scenes from the MultiCamVideo dataset and transfer the camera motion under three different reference image conditions. <b>The results demonstrate that our model can achieve lossless transfer of camera motion from the input video.</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light" id="section8">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">8. Framework</h2>
+      <img style="max-width: 1000px; margin: 0 auto;" class="fit-picture" src="assets/framework/framework.png" alt="Grapefruit slice atop a pile of other slices" />
+      
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        Overview of our framework. We introduce CameraNoise, a controlled noise signal that encodes temporal correlations of camera poses into video diffusion. Our method is constructed via Geometry-guided Reprojection Flow (GRFlow) and a Gaussian-preserving warping algorithm, and injected into the video diffusion to enable precise viewpoint control. We use bold green arrows to illustrate the flow of control signals from camera poses to the synthesized video.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero" id="section9">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">9. Geometry-guided Reprojection Flow (GRFlow) </h2>
+      <h2 class="title is-4">A Reprojection of Camera Poses in 2D Grid.</h2>
+      
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/gr_flow/grflow_demo1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        In this example, we show the GRFlows generated for the leftmost video under different alpha values in Eq. (5).
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light" id="section10">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">10. Our Appearance-agnostic CameraNoise via GRFlow</h2>
+      <h2 class="title is-3">v.s.</h2>
+      <h2 class="title is-4">Appearance-motion entangled optical-flow-based noise</h2>
+      
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/optical_vs_grflow/comparison_demo1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+        
+        <tr>
+          <td><video src="assets/optical_vs_grflow/comparison_demo2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        * <i>To enhance the visualization of motion and appearances in the noise, we speed up the video x2.</i>
+      </div>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        Since optical flow inherently contains object contours and appearance information, the warped noise derived from it inevitably carries appearance priors. During inference in diffusion models, such information can conflict semantically with the noise prior and control conditions, ultimately leading to generation failure.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero" id="section11">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">11. CameraNoise warping with different values of pseudo-depth d.</h2>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+      <b>11.1</b>  We present the warping results of CameraNoise under different values of d. From these results, we can observe that smaller d values amplify the camera motion, while as d increases, the effectiveness of push-in and pull-out camera movements degrades noticeably, and rotation-based camera motions also introduce more visible artifacts. In practical scenarios, we find that d=0.5 performs best.
+      </div>
+      <table class="video-table" >
+        <tr>
+          <td><video src="assets/noise/1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/noise/2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/noise/4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/noise/3.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+      <b>11.2</b> We further evaluate the video generation results under large d values and select the push-in/pull-out camera motion, which is the most sensitive to d, as the test case, using the template from the "cat" video in the fourth row above. As shown, when d becomes large, CameraNoise can no longer be properly represented, and the generated videos therefore fail to accurately express the intended push-in/pull-out motion.
+      </div>
+      <table class="video-table" >
+        <tr>
+          <td><video src="assets/noise/noise_videos.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light" id="section12">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">12. Comparison with previous State-of-the-Arts.</h2>
+      
+      <table class="video-table">
+        <tr>
+          <td><video src="assets/rebuttal/compared_with_others/compared_case1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/rebuttal/compared_with_others/compared_case3.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/rebuttal/compared_with_others/compared_case5.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+        <tr>
+          <td><video src="assets/rebuttal/compared_with_others/compared_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        Since previous CameraCtrl, MotionCtrl, and Go-with-the-flow methods are trained on different datasets, we visualize their zero-shot results on the <b>MultiCamVideo dataset</b> to ensure a fair comparison. It is important to note that our focus is on controlling the camera motion in the scene, rather than dictating how the people within the scene move. GT means the ground truth.
+        <p><b>We observe that all these methods exhibit varying degrees of degradation when applied to new scenes:</b></p>
+        <p>1) CameraCtrl shows declines in both camera control accuracy and visual content quality;</p>
+        <p>2) MotionCtrl almost completely loses its camera control capability in the new scenes;</p>
+        <p>3) Go-with-the-Flow suffers from a noticeable drop in visual content quality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero" id="section13">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">13. Comparison with State-of-the-Arts under OOD scenarios.</h2>
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case2.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 1: <span style="color: #e67e22;">move-up shot</span>.</p>
+
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case3.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 2: <span style="color: #e67e22;">move-down shot</span>.</p>
+
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case4.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 3: <span style="color: #e67e22;">move-left shot</span>.</p>
+      
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case1.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 4: <span style="color: #e67e22;">move-right shot</span>.</p>
+
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case5.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 5: <span style="color: #e67e22;">move-clockwise shot</span>.</p>
+
+      
+      <table class="video-table" style="max-width: 1300px; margin: auto; width: 100%; table-layout: fixed;">
+        <tr>
+          <td><video src="assets/rebuttal/ood_cases/ood_case6.mp4" loop controls muted autoplay></video></td>
+        </tr>
+      </table>
+      <p>Camera pose type 6: <span style="color: #e67e22;">move-in shot</span>.</p>
+
+      </table>
+      <div style="max-width: 1000px; margin: 0 auto;" class="has-text-justified">
+        <br>
+        <span>We evaluate methods MotionCtrl, CameraCtrl, Go-with-the-Flow, GEN3C, and our CameraNoise in six typical out-of-distribution (OOD) scenarios: valleys, fields, lakes, deserts, forests, and amusement parks (see the reference images in the first column). For each scene, we test these methods using six representative camera motions provided by GEN3C.</span>
+        <p><b>Based on these results, we summarize the characteristics and limitations of current mainstream methods under OOD conditions:</b></p>
+        <p>1) MotionCtrl and CameraCtrl: exhibit large deviations in camera following, indicating limited robustness in camera control;</p>
+        <p>2) Go-with-the-Flow: prone to excessive camera motion and occasional content collapse;</p>
+        <p>3) GEN3C: produces static scenes where objects cannot move, resulting in rigid video content. Additionally, due to its reliance on 3D feature modeling, it is susceptible to scene penetration issues (e.g., camera pose 5);</p>
+        <p><b>4) Our method: demonstrates superior performance in OOD scenarios in terms of camera control accuracy, content consistency, and motion dynamics.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content" style="text-align: left;">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+      @article{zhao2026cameranoise,
+        title={CameraNoise: Enabling Faithful Camera Control in Video Diffusion through Geometry-Flow-Guided Noise Warping},
+        author = {Zhao, Haoyu and Gu, Jiaxi and Chen, Haoran and Zheng, Qingping and Jin, Yeying and Yang, Hongyi and Cheng, Junqi and Zhang, Yuang and Lu, Zenghui and Yu, Huan and Jiang, Jie and Shu, Peng and Wu, Zuxuan and Jiang, Yu-Gang},
+        journal={Forty-third International Conference on Machine Learning (ICML)},
+        year={2026}
+      }
+      </code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  <script>
+  </script>
+</html>
