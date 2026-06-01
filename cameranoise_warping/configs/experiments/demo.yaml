@@ -1,0 +1,15 @@
+# Copy this file for each experiment and edit paths only here.
+vggt_ckpt_pth: checkpoints/VGGT-1B
+data_saved_root: outputs/cameranoise_demo
+
+videos:
+  - assets/examples/reference_video.mp4
+
+# For large datasets, prefer this instead of videos:
+# videos_txt: assets/examples/videos.txt
+
+# cameranoise_downscale_size controls the saved CameraNoise resolution [height, width].
+# Examples:
+#   576x1024 video -> latent CameraNoise [72, 128]
+#   768x768 video  -> latent CameraNoise [96, 96]
+cameranoise_downscale_size: [72, 128]

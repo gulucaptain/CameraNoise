@@ -1,0 +1,31 @@
+vggt_ckpt_pth: ""
+vggt_estimation_target_size: 518
+
+warmup_intrinsics: false
+return_estimated_depth: false
+intrinsic_smoothing: true
+
+FRAME: 0.5
+FLOW: 4
+LATENT: 8
+bs: 1
+depth: 0.5
+
+get_cameranoise_or_not: true
+transformation_smoothing_alpha: 0.2
+grflow_visualization: false
+saved_flow: false
+
+noise_channels: 16
+cameranoise_std_reference_size: 96
+cameranoise_downscale_size: null
+cameranoise_visualize: true
+cameranoise_visualize_match_video_size: true
+cameranoise_save_files: true
+progressive_noise_alpha: 0
+post_noise_alpha: 0
+overwrite: false
+
+videos: []
+videos_txt: ""
+data_saved_root: ""
