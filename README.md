@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/cameranoise_icon.png" alt="CameraNoise logo" width="130">
+  <img src="assets/cameranoise_icon.png" alt="CameraNoise logo" width="260">
 </p>
 
 <h2 align="center">[ICML 2026] CameraNoise: Enabling Faithful Camera Control in Video Diffusion through Geometry-Flow-Guided Noise Warping</h2>
@@ -432,19 +432,23 @@ done
 
 The end-to-end CameraNoise pipeline automatically runs the following steps:
 
-```text
-reference video
-    -> camera pose estimation
-    -> GRFlow construction
-    -> CameraNoise warping
-    -> CameraNoise .npy / visualization
+```mermaid
+flowchart LR
+    subgraph W[Standalone CameraNoise Warping]
+        A[Reference Video] --> B[Camera Pose Estimation，例如VGGT]
+        B --> C[GRFlow Construction]
+        C --> D[CameraNoise Warping]
+        D --> N[CameraNoise .npy]
+        D --> V[Noise Visualization .mp4]
+    end
 
-reference image
-    -> QwenVL caption generation
-
-reference image + caption + CameraNoise
-    -> Wan2.1-I2V generation
-    -> final video
+    subgraph G[Camera-controlled Video Generation]
+        E[Reference Image] --> F[Image Captioning，例如Qwen2-VL]
+        E --> M[Wan2.1-I2V]
+        F --> M
+        N --> M
+        M --> H[Camera-controlled Video]
+    end
 ```
 
 For debugging, we recommend splitting the full pipeline into three stages:
