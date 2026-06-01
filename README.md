@@ -74,7 +74,7 @@ The overall CameraNoise workflow consists of two relatively independent stages. 
 ```mermaid
 flowchart LR
     subgraph W[Standalone CameraNoise Warping]
-        A[Reference Video] --> B[Camera Pose Estimation，例如VGGT]
+        A[Reference Video] --> B[Camera Pose Estimation，e.g., VGGT]
         B --> C[GRFlow Construction]
         C --> D[CameraNoise Warping]
         D --> N[CameraNoise .npy]
@@ -82,7 +82,7 @@ flowchart LR
     end
 
     subgraph G[Camera-controlled Video Generation]
-        E[Reference Image] --> F[Image Captioning，例如Qwen2-VL]
+        E[Reference Image] --> F[Image Captioning，e.g., Qwen2-VL]
         E --> M[Wan2.1-I2V]
         F --> M
         N --> M
