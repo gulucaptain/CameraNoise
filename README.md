@@ -74,17 +74,21 @@ The overall CameraNoise workflow consists of two relatively independent stages. 
 ```mermaid
 flowchart LR
     subgraph W[Standalone CameraNoise Warping]
-        A[Reference Video] --> B[Camera Pose Estimation, e.g., VGGT]
+        A[Reference Video] --> B[Camera Pose Estimation，例如VGGT]
         B --> C[GRFlow Construction]
         C --> D[CameraNoise Warping]
         D --> N[CameraNoise .npy]
+        D --> V[Noise Visualization .mp4]
     end
 
     subgraph G[Camera-controlled Video Generation]
-        E[Reference Image] --> F[Image Captioning, e.g., Qwen2-VL]
+        E[Reference Image] --> F[Image Captioning，例如Qwen2-VL]
         E --> M[Wan2.1-I2V]
+        F --> M
+        N --> M
         M --> H[Camera-controlled Video]
     end
+```
 ```
 
 If you only need the camera-motion condition, you can run **CameraNoise Warping** alone. If you want to generate the final video, run the full I2V pipeline.
@@ -432,23 +436,19 @@ done
 
 The end-to-end CameraNoise pipeline automatically runs the following steps:
 
-```mermaid
-flowchart LR
-    subgraph W[Standalone CameraNoise Warping]
-        A[Reference Video] --> B[Camera Pose Estimation，例如VGGT]
-        B --> C[GRFlow Construction]
-        C --> D[CameraNoise Warping]
-        D --> N[CameraNoise .npy]
-        D --> V[Noise Visualization .mp4]
-    end
+```text
+reference video
+    -> camera pose estimation
+    -> GRFlow construction
+    -> CameraNoise warping
+    -> CameraNoise .npy / visualization
 
-    subgraph G[Camera-controlled Video Generation]
-        E[Reference Image] --> F[Image Captioning，例如Qwen2-VL]
-        E --> M[Wan2.1-I2V]
-        F --> M
-        N --> M
-        M --> H[Camera-controlled Video]
-    end
+reference image
+    -> QwenVL caption generation
+
+reference image + caption + CameraNoise
+    -> Wan2.1-I2V generation
+    -> final video
 ```
 
 For debugging, we recommend splitting the full pipeline into three stages:
