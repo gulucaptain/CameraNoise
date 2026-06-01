@@ -89,7 +89,6 @@ flowchart LR
         M --> H[Camera-controlled Video]
     end
 ```
-```
 
 If you only need the camera-motion condition, you can run **CameraNoise Warping** alone. If you want to generate the final video, run the full I2V pipeline.
 
