@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <b>Fudan University, Tencent.</b>
+</p>
+
+<p align="center">
   <a href="https://arxiv.org/abs/2605.30774">
     <img src="https://img.shields.io/badge/arXiv-2605.30774-b31b1b.svg" alt="arXiv">
   </a>
